@@ -1,7 +1,9 @@
 const d3 = require('d3')
-const { graphConfig, getScale, uiConfig } = require('../config')
+const { graphConfig, getScale, uiConfig, directoryPath } = require('../config')
 const { stickQuadrantOnScroll } = require('./quadrants')
 const { removeAllSpaces } = require('../../util/stringUtil')
+const fs = require('fs')
+const path = require('path')
 
 function fadeOutAllBlips() {
   d3.selectAll('g > a.blip-link').attr('opacity', 0.3)
@@ -204,7 +206,14 @@ function renderQuadrantTables(quadrants, rings) {
   })
 }
 
+function readQuadrantAndRingNames() {
+  const filePath = path.join(directoryPath, 'quadrants_and_rings.json')
+  const data = fs.readFileSync(filePath, 'utf8')
+  return JSON.parse(data)
+}
+
 module.exports = {
   renderQuadrantTables,
   renderBlipDescription,
+  readQuadrantAndRingNames,
 }

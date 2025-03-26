@@ -24,7 +24,6 @@ const {
 const { renderQuadrantTables } = require('./components/quadrantTables')
 const { addQuadrantNameInPdfView, addRadarLinkInPdfView } = require('./pdfPage')
 
-const { constructSheetUrl } = require('../util/urlUtils')
 const { toRadian } = require('../util/mathUtils')
 
 const MIN_BLIP_WIDTH = 12

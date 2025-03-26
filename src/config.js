@@ -13,4 +13,7 @@ const config = () => {
   }
   return process.env.ENVIRONMENT ? env[process.env.ENVIRONMENT] : env
 }
-module.exports = config
+
+const directoryPath = process.env.DIRECTORY_PATH || './data';
+
+module.exports = { config, directoryPath }
