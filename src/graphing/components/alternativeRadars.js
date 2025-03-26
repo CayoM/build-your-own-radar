@@ -1,11 +1,16 @@
 const d3 = require('d3')
-const { constructSheetUrl } = require('../../util/urlUtils')
+const fs = require('fs')
+const path = require('path')
+const { directoryPath } = require('../config')
 
-function renderAlternativeRadars(radarFooter, alternatives, currentSheet) {
+function renderAlternativeRadars(radarFooter) {
   const alternativesContainer = radarFooter.append('div').classed('alternative-radars', true)
 
-  for (let i = 0; alternatives.length > 0; i++) {
-    const list = alternatives.splice(0, 5)
+  const filePath = path.join(directoryPath, 'alternative_radars.json')
+  const data = JSON.parse(fs.readFileSync(filePath, 'utf8'))
+
+  for (let i = 0; data.length > 0; i++) {
+    const list = data.splice(0, 5)
 
     const alternativesList = alternativesContainer
       .append('ul')
@@ -18,16 +23,9 @@ function renderAlternativeRadars(radarFooter, alternatives, currentSheet) {
       alternativeListItem
         .append('a')
         .classed('alternative-radars__list-item-link', true)
-        .attr('href', constructSheetUrl(alternative))
+        .attr('href', '#')
         .attr('role', 'tab')
         .text(alternative)
-
-      if (currentSheet === alternative) {
-        alternativeListItem.classed('active', true)
-
-        d3.selectAll('.alternative-radars__list-item a').attr('aria-selected', null)
-        alternativeListItem.select('a').attr('aria-selected', 'true')
-      }
     })
   }
 }

@@ -59,6 +59,8 @@ function getScaledQuadrantHeightWithGap(scale) {
   return (graphConfig.quadrantHeight + graphConfig.quadrantsGap) * scale
 }
 
+const directoryPath = process.env.DIRECTORY_PATH || './data';
+
 module.exports = {
   graphConfig,
   uiConfig,
@@ -67,4 +69,5 @@ module.exports = {
   getScaledQuadrantWidth,
   getScaledQuadrantHeightWithGap,
   isValidConfig,
+  directoryPath
 }
